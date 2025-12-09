@@ -1,0 +1,164 @@
+<!-- tareas/templates/tareas/lista_usuarios_simple.html -->
+{% extends 'tareas/base.html' %}
+{% load static %}
+
+{% block titulo %}Usuarios - PlaniApp{% endblock %}
+
+{% block contenido %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-2">
+                <i class="fas fa-users me-2 text-primary"></i>Usuarios del Sistema
+            </h1>
+            <p class="text-muted mb-0">Gestión básica de usuarios</p>
+        </div>
+        <div>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Card contenedora -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Lista de Usuarios ({{ total_usuarios }})
+                </h5>
+                <span class="badge bg-primary">Solo visualización</span>
+            </div>
+        </div>
+        
+        <div class="card-body p-0">
+            <!-- Tabla simple -->
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">ID</th>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Estado</th>
+                            <th>Registro</th>
+                            <th class="text-center pe-4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in usuarios %}
+                        <tr>
+                            <td class="ps-4">
+                                <span class="badge bg-secondary">#{{ usuario.id }}</span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar me-3">
+                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
+                                             style="width: 36px; height: 36px; font-size: 14px;">
+                                            {{ usuario.username|slice:":1"|upper }}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>{{ usuario.username }}</strong>
+                                        {% if usuario.is_superuser %}
+                                        <br><small class="text-warning">Superusuario</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {% if usuario.first_name or usuario.last_name %}
+                                {{ usuario.first_name }} {{ usuario.last_name }}
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if usuario.email %}
+                                {{ usuario.email|truncatechars:25 }}
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if usuario.is_active %}
+                                <span class="badge bg-success">Activo</span>
+                                {% else %}
+                                <span class="badge bg-danger">Inactivo</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <small>{{ usuario.date_joined|date:"d/m/Y" }}</small>
+                            </td>
+                            <td class="pe-4">
+                                <!-- Contenedor de botones -->
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <!-- Botón Modificar Usuario -->
+                                    <button type="button" class="btn btn-sm btn-primary" 
+                                            style="min-width: 100px;"
+                                            disabled>
+                                        <i class="fas fa-edit me-1"></i>
+                                        Modificar
+                                    </button>
+                                    
+                                    <!-- Botón Desactivar Temporalmente -->
+                                    <button type="button" class="btn btn-sm btn-warning"
+                                            style="min-width: 100px;"
+                                            disabled>
+                                        <i class="fas fa-clock me-1"></i>
+                                        Desactivar
+                                    </button>
+                                    
+                                    <!-- Botón Reiniciar Clave -->
+                                    <button type="button" class="btn btn-sm btn-info"
+                                            style="min-width: 100px;"
+                                            disabled>
+                                        <i class="fas fa-key me-1"></i>
+                                        Reiniciar Clave
+                                    </button>
+                                    
+                                    <!-- Botón Eliminar Usuario -->
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                            style="min-width: 100px;"
+                                            disabled>
+                                        <i class="fas fa-trash me-1"></i>
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5">
+                                <i class="fas fa-users-slash fs-1 text-muted mb-3"></i>
+                                <h5>No hay usuarios registrados</h5>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="card-footer bg-white border-0 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="text-muted small">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Los botones están deshabilitados - Solo vista de demostración
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-secondary" disabled>
+                        <i class="fas fa-plus me-1"></i>Agregar Usuario
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

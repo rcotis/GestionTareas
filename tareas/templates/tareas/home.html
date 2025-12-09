@@ -1,0 +1,55 @@
+{% extends 'tareas/base.html' %}
+{% block content %}
+<div class="dashboard-header">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">
+            {% if institucion %}{{ institucion.nombre }}{% else %}Sistema de Gestión de Tareas{% endif %}
+        </h1>
+        <p class="lead">Plataforma integral para la gestión y seguimiento de tareas institucionales</p>
+        {% if not user.is_authenticated %}
+        <div class="mt-4">
+            <a href="{% url 'login' %}" class="btn btn-light btn-lg">
+                <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+            </a>
+        </div>
+        {% else %}
+        <div class="mt-4">
+            <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg">
+                <i class="fas fa-tachometer-alt me-2"></i>Ir al Dashboard
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Gestión Centralizada</h5>
+                    <p class="card-text">Administre todas las tareas desde una única plataforma integrada.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Seguimiento en Tiempo Real</h5>
+                    <p class="card-text">Monitoree el progreso de las tareas con métricas actualizadas.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-users fa-3x text-info mb-3"></i>
+                    <h5 class="card-title">Trabajo Colaborativo</h5>
+                    <p class="card-text">Coordine equipos y asigne responsabilidades de manera eficiente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

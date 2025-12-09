@@ -1,0 +1,48 @@
+.login-container 
+{
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.error 
+{
+    color: red;
+}
+.navbar-brand { font-weight: bold; }
+.card { border: none; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+.stat-card { color: white; text-align: center; padding: 20px; border-radius: 15px; }
+.bg-gradient-primary { background: linear-gradient(45deg, #3498db, #2980b9); }
+.bg-gradient-success { background: linear-gradient(45deg, #27ae60, #229954); }
+.bg-gradient-warning { background: linear-gradient(45deg, #f39c12, #e67e22); }
+.bg-gradient-info { background: linear-gradient(45deg, #17a2b8, #138496); }
+.bg-gradient-danger { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+.dashboard-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 0; margin-bottom: 30px; }
+.progress { height: 8px; }
+.chart-container { position: relative; height: 300px; width: 100%; }
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table th {
+    font-weight: 600;
+    color: #6c757d;
+    border-top: none;
+    border-bottom: 2px solid #e9ecef;
+    padding: 1rem;
+    text-align: center;
+}
+.table td {
+    vertical-align: middle;
+    padding: 1rem;
+}
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

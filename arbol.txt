@@ -1,0 +1,59 @@
+.
+├── arbol.txt
+├── manage.py
+├── planiapp
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-39.pyc
+│   │   ├── settings.cpython-39.pyc
+│   │   ├── urls.cpython-39.pyc
+│   │   └── wsgi.cpython-39.pyc
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── planiapp.txt
+├── static
+│   └── css
+│       └── misestilos.css
+└── tareas
+    ├── admin.py
+    ├── apps.py
+    ├── context_processors.py
+    ├── forms.py
+    ├── __init__.py
+    ├── migrations
+    │   ├── 0001_initial.py
+    │   ├── __init__.py
+    │   └── __pycache__
+    │       ├── 0001_initial.cpython-39.pyc
+    │       └── __init__.cpython-39.pyc
+    ├── models.py
+    ├── __pycache__
+    │   ├── admin.cpython-39.pyc
+    │   ├── apps.cpython-39.pyc
+    │   ├── context_processors.cpython-39.pyc
+    │   ├── forms.cpython-39.pyc
+    │   ├── __init__.cpython-39.pyc
+    │   ├── models.cpython-39.pyc
+    │   ├── urls.cpython-39.pyc
+    │   └── views.cpython-39.pyc
+    ├── templates
+    │   ├── registro
+    │   │   ├── login.html
+    │   │   └── registro_usuario.html
+    │   ├── tareas
+    │   │   ├── base.html
+    │   │   ├── dashboard.html
+    │   │   ├── home.html
+    │   │   ├── lista_usuarios_simple.html
+    │   │   ├── personal_confirm_delete.html
+    │   │   ├── personal_detail.html
+    │   │   ├── personal_form.html
+    │   │   └── personal_lista.html
+    │   └── usuarios
+    ├── tests.py
+    ├── urls.py
+    └── views.py
+
+12 directories, 44 files

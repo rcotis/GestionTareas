@@ -1,0 +1,86 @@
+{% extends 'tareas/base.html' %}
+{% block titulo %}Dashboard{% endblock %}
+{% block contenido %}
+<div class="dashboard-header">
+    <div class="container">
+        <h1 class="display-5 fw-bold"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h1>
+        <p class="lead mb-0">Sistema de Gestión de Tareas - Bienvenido, {{ user.username }}</p>
+    </div>
+</div>
+<div class="container">
+    <!-- Estadísticas (tu código actual está perfecto) -->
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-gradient-primary">
+                <div class="card-body">
+                    <i class="fas fa-tasks fa-2x mb-2"></i>
+                    <h2>{{ total_tareas|default:0 }}</h2>
+                    <p class="mb-0">Total Tareas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-gradient-warning">
+                <div class="card-body">
+                    <i class="fas fa-clock fa-2x mb-2"></i>
+                    <h2>{{ tareas_pendientes|default:0 }}</h2>
+                    <p class="mb-0">Pendientes</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-gradient-info">
+                <div class="card-body">
+                    <i class="fas fa-spinner fa-2x mb-2"></i>
+                    <h2>{{ tareas_en_progreso|default:0 }}</h2>
+                    <p class="mb-0">En Progreso</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-gradient-success">
+                <div class="card-body">
+                    <i class="fas fa-check-circle fa-2x mb-2"></i>
+                    <h2>{{ tareas_completadas|default:0 }}</h2>
+                    <p class="mb-0">Completadas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   {% if mis_tareas %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="fas fa-user-tasks me-2"></i>Mis Tareas Pendientes</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for tarea in mis_tareas %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ tarea.titulo }}</h6>
+                            <small class="text-{% if tarea.modalidad == 'urgente' %}danger{% else %}warning{% endif %}">
+                                {{ tarea.get_estado_tarea_display }}
+                            </small>
+                        </div>
+                        <p class="mb-1">{{ tarea.descripcion|truncatewords:20 }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+    <!-- Mensaje de error (tu código actual) -->
+    {% if error %}
+    <div class="alert alert-warning mt-4">
+        <h4>Información del sistema</h4>
+        <p>El sistema está funcionando. Puedes agregar datos desde el <a href="/admin/">panel de administración</a>.</p>
+        <p><small>Error técnico: {{ error }}</small></p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

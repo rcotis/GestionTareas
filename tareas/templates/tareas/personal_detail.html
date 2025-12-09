@@ -1,0 +1,160 @@
+{% extends 'tareas/base.html' %}
+
+{% block titulo %}Detalles de {{ personal.nombre_completo }} - {{ institucion.nombre }}{% endblock %}
+
+{% block contenido %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">
+                <i class="fas fa-user me-2 text-primary"></i>{{ personal.nombre_completo }}
+            </h1>
+            <a href="{% url 'personal_list' %}" class="btn btn-outline-secondary">
+            <p class="text-muted mb-0">Detalles completos del personal</p>
+        </div>
+        <div class="btn-group">
+            <a href="{% url 'personal_update' personal.pk %}" class="btn btn-warning">
+            <!-- <a href="{% url 'personal_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>Volver
+            </a> -->
+            {% if perms.tareas.change_personal %}
+            <a href="{% url 'personal_update' personal.pk %}" class="btn btn-warning">
+                <i class="fas fa-edit me-1"></i>Editar
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Información Principal -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-id-card me-2"></i>Información Personal
+                    </h5>
+                </div>
+                <div class="card-body text-center">
+                    <div class="avatar-lg bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                        <span class="text-white fw-bold fs-4">{{ personal.nombre|first }}{{ personal.apellido|first }}</span>
+                    </div>
+                    <h4>{{ personal.nombre_completo }}</h4>
+                    <p class="text-muted">Cédula: {{ personal.cedula }}</p>
+                    
+                    <div class="list-group list-group-flush text-start">
+                        <div class="list-group-item d-flex justify-content-between">
+                            <span>Fecha Nacimiento:</span>
+                            <strong>{{ personal.fecha_nac }}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <span>Fecha Ingreso:</span>
+                            <strong>{{ personal.fecha_ingreso }}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <span>Dependencia:</span>
+                            <strong>{{ personal.dependencia.nombre|default:"No asignada" }}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <span>Usuario:</span>
+                            <strong>{{ personal.usuario.username }}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <span>Email:</span>
+                            <strong>{{ personal.usuario.email|default:"No especificado" }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información de Contacto y Tareas -->
+        <div class="col-lg-8">
+            <!-- Información de Contacto -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-address-book me-2"></i>Información de Contacto
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Teléfono:</strong> {{ personal.telefono|default:"No especificado" }}</p>
+                        </div>
+                        <div class="col-12">
+                            <p><strong>Dirección:</strong></p>
+                            <p class="text-muted">{{ personal.direccion|default:"No especificada"|linebreaks }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resumen de Tareas -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-tasks me-2"></i>Resumen de Tareas
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded p-3">
+                                <h3 class="text-primary">{{ tareas_asignadas.count }}</h3>
+                                <p class="mb-0">Tareas Asignadas</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded p-3">
+                                <h3 class="text-success">{{ tareas_supervisadas.count }}</h3>
+                                <p class="mb-0">Tareas Supervisadas</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded p-3">
+                                <h3 class="text-info">{{ tareas_como_participante.count }}</h3>
+                                <p class="mb-0">Como Participante</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tareas Asignadas -->
+                    {% if tareas_asignadas %}
+                    <div class="mt-4">
+                        <h6>Tareas Asignadas:</h6>
+                        <div class="list-group">
+                            {% for tarea in tareas_asignadas|slice:":5" %}
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">{{ tarea.titulo }}</h6>
+                                    <small class="text-{{ tarea.get_porcentaje_display }}">{{ tarea.porcentaje_avance }}%</small>
+                                </div>
+                                <p class="mb-1 small">{{ tarea.descripcion|truncatewords:10 }}</p>
+                                <small class="text-muted">Vence: {{ tarea.fecha_fin_prevista }}</small>
+                            </a>
+                            {% endfor %}
+                        </div>
+                        {% if tareas_asignadas.count > 5 %}
+                        <div class="text-center mt-2">
+                            <small class="text-muted">... y {{ tareas_asignadas.count|add:"-5" }} tareas más</small>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<style>
+.avatar-lg {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+}
+</style>
+{% endblock %}
