@@ -88,6 +88,10 @@ class Personal(models.Model):
     telefono = models.CharField(max_length=20, blank=True, null=True)
     direccion = models.TextField(blank=True, null=True)
     
+    usuario_creado = models.BooleanField(default=False)
+    password_temporal = models.CharField(max_length=100, blank=True, null=True)
+    fecha_primer_acceso = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         verbose_name = "Personal"
         verbose_name_plural = "Personal"

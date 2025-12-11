@@ -12,7 +12,7 @@
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
-├── planiapp.txt
+├── README.md
 ├── static
 │   └── css
 │       └── misestilos.css
@@ -24,9 +24,11 @@
     ├── __init__.py
     ├── migrations
     │   ├── 0001_initial.py
+    │   ├── 0002_personal_fecha_primer_acceso_and_more.py
     │   ├── __init__.py
     │   └── __pycache__
     │       ├── 0001_initial.cpython-39.pyc
+    │       ├── 0002_personal_fecha_primer_acceso_and_more.cpython-39.pyc
     │       └── __init__.cpython-39.pyc
     ├── models.py
     ├── __pycache__
@@ -40,20 +42,13 @@
     │   └── views.cpython-39.pyc
     ├── templates
     │   ├── registro
-    │   │   ├── login.html
-    │   │   └── registro_usuario.html
-    │   ├── tareas
-    │   │   ├── base.html
-    │   │   ├── dashboard.html
-    │   │   ├── home.html
-    │   │   ├── lista_usuarios_simple.html
-    │   │   ├── personal_confirm_delete.html
-    │   │   ├── personal_detail.html
-    │   │   ├── personal_form.html
-    │   │   └── personal_lista.html
-    │   └── usuarios
+    │   │   └── login.html
+    │   └── tareas
+    │       ├── base.html
+    │       ├── dashboard.html
+    │       └── home.html
     ├── tests.py
     ├── urls.py
     └── views.py
 
-12 directories, 44 files
+11 directories, 40 files
